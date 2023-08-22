@@ -25,7 +25,9 @@ class SideMenu extends StatelessWidget {
                   height: defaultPadding * 3,
                 ),
                 Image.asset(
-                  "assets/logo/logo_omonde.png",
+                  "assets/logo/logo_icons.png",
+                  // width: 40,
+                  // height: 40,
                   scale: 5,
                 ),
                 SizedBox(
