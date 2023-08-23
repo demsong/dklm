@@ -2132,13 +2132,6 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                           ),
                                         ],
                                       ),
-                                      // AppButton(
-                                      //   type: ButtonType.PRIMARY,
-                                      //   text: "Envoyer",
-                                      // ),
-                                      // SizedBox(height: 24.0),
-
-                                      //FIN DU DEUXIEME FORMULAIRE
                                     ],
                                   ) ,
                                 ),

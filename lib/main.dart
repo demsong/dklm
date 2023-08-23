@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Omonde_canada_application ',
+      title: 'Omonde_Canada - Application ',
       theme: ThemeData.dark().copyWith(
         appBarTheme: AppBarTheme(backgroundColor: bgColor, elevation: 0),
         scaffoldBackgroundColor: bgColor,

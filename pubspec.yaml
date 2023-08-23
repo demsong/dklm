@@ -1,4 +1,6 @@
-name: Omonde_Canada_Application First
+name: smart_admin_dashboard
+#name: Flutter_Omonde_Canada_Application_First
+
 description: Un nouveau projet.
 
 # The following line prevents the package from being accidentally published to
@@ -34,7 +36,7 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_icons:
     git:
-#      url: https://github.com/adarsh-technocrat/flutter-icons.git
+      url: https://github.com/adarsh-technocrat/flutter-icons.git
       branch: null-safety-migration
   json_annotation: ^4.0.1
   json_serializable: ^4.1.2

@@ -22,13 +22,13 @@ class SideMenu extends StatelessWidget {
                   height: defaultPadding * 3,
                 ),
                 Image.asset(
-                  "assets/logo/logo_icons.png",
+                  "assets/logo/logo_icon.png",
                   scale: 5,
                 ),
                 SizedBox(
                   height: defaultPadding,
                 ),
-                Text("Omonde_Application")
+                Text("Smart HR - Application")
               ],
             )),
             DrawerListTile(
