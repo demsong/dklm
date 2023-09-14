@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:intl/intl.dart';
 import 'package:smart_admin_dashboard/core/constants/color_constants.dart';
 import 'package:smart_admin_dashboard/responsive.dart';
@@ -20,19 +22,28 @@ class EnregistrerClientContenu extends StatefulWidget {
 
 class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
   int _index =0;
-  late bool selected;
-  late List<String> check;
-  late List<String> checknext;
-
-  late List<String> visa;
-  late String typeVisa;
-
-
   bool visible=true;
+  late bool enabled;
+  late bool selected;
+  late String dropdownVal;
+  late String dropdownVa;
+  late String consultationPayeValue;
+  late String passportValideValue;
+  late String enfantsValue;
+  late String permisEtudeValue;
+  late String dropdown;
+  late String dropdownValues;
+  late String typeVisa;
+  late String preProcess;
+  late List<String> consultationPayeItems;
+  late List<String> checknext;
+  late List<String> visa;
   late List<String> check2;
   late List<String> enfant2;
   late List<String> statutMatrimonial;
-  late List<String> passportValide;
+  late List<String> passportValideItems;
+  late List <String> permisEtudeItems;
+  late List <String> enfantsItems;
   late List<String> casier;
   late List<String> sante;
   late List<String> enfant;
@@ -45,12 +56,6 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
   late List<String> compagnie;
   late List<String> atestationwork;
   late List<String> startprocedure;
-  late bool enabled;
-  late String dropdownVal;
-  late String dropdownVa;
-  late String dropdownValue;
-  late String dropdown;
-  late String dropdownValues;
   late List<String> sexe;
   late List <String> domaineEtude;
   late List <String> permisEtude;
@@ -61,14 +66,14 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
   late List <String> visiteAnterieur;
   late List <String> vieAnterieur;
   late List <String> compagne;
-  late List<String> attestationTravail;
-  late List<String> preProcedure;
-  late List<String> offreEmploieCanadien;
-  late List<String> diplomeEtude;
-  late List<String> familleAcceuil;
-  late List<String> compagneImmigration;
-  late List<String> langueQuestion;
-  late List<String> tcl;
+  late List <String> attestationTravail;
+  late List <String> preProcedure;
+  late List <String> offreEmploieCanadien;
+  late List <String> diplomeEtude;
+  late List <String> familleAcceuil;
+  late List <String> compagneImmigration;
+  late List <String> langueQuestion;
+  late List <String> tcl;
   // late List<String> typeVisa;
 
   //creation des controller qui von recuperer les variable saisie
@@ -95,7 +100,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
   TextEditingController anneeExperienceEditingController=TextEditingController();
   TextEditingController langeParlerEditingController= TextEditingController();
   TextEditingController niveauCompagnonEditingController=TextEditingController();
-  // TextEditingController testLangueEditingController = TextEditingController();
+  TextEditingController nomEnfantEditingController = TextEditingController();
   TextEditingController domaineConcerneEditingController=TextEditingController();
   TextEditingController ageCompagneEditingController=TextEditingController();
   TextEditingController raisonEditingController=TextEditingController();
@@ -112,88 +117,18 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
 
   //fin controller select
   //fin de creationdes controller
-
   @override
   void initState() {
-    selected = false;
-    dropdownValue = "oui payer";
-    if (dropdownValue=="oui payer"){
-      enabled = true;
-    }
-    else{
-      enabled = false;
-    }
-    super.initState();
-    check = ['oui','non'];
+    consultationPayeItems = ['oui','non'];
+    passportValideItems = ['Oui','Non'];
+    permisEtudeItems=['Oui','Non'];
     checknext = ['oui','non'];
     check2 = ['oui','non'];
-    enfant2 =["oui j'ai des enfants", "non j'ai aucun enfant"];
+    enfantsItems =["Oui","Non"];
     francais=['Bas','Intermediaire', 'Eleve'];
     anglais=['Bas','Intermediaire', 'Eleve'];
-
-    passportValide = ['oui mon passport est valide','Non mon passport est invalide'];
-    dropdownVa="oui mon passport est valide";
-    if (dropdownVa=="oui je suis parent"){
-      enabled = true;
-    }
-    else{
-      enabled = false;
-    }
-    super.initState();
-
-
-    sante = ["Oui j'ai des probleme de sante",'Non aucun probleme de sante'];
-
-
-    enfant = ['oui je suis parent','Non je ne suis pas erent'];
-    // enfant2 ="oui j'ai des enfants";
-    // enfant2 = ["oui j'ai des enfants","Non je n'es pas j'ai des enfants"];
-    dropdownValues="oui je suis parent";
-    // if (dropdownValues=="oui je suis parent"){
-    //   enabled = true;
-    // }
-    // else{
-    //   enabled = false;
-    // }
-    // super.initState();
-
-    typeVisa = 'Visa Etudiant';
-
-    if (typeVisa=="Visa Etudiant"){
-      enabled = true;
-    }
-    else{
-      enabled = false;
-    }
-    super.initState();
-
-
-    dropdownValue = 'oui';
-    if (dropdownValue=="oui" && typeVisa=="visa permanant" ){
-      enabled = true;
-    }
-    else{
-      enabled = false;
-    }
-    super.initState();
-
-    dropdown = 'oui';
-    if (dropdownValue=="oui" && typeVisa=="visa visiteur" ){
-      enabled = true;
-    }
-    else{
-      enabled = false;
-    }
-    super.initState();
-
-
     emploie = ['Oui emploie valide','Non pas emploie valide'];
-
-
     casier=["oui un casier jusdiciaire","non j'ai aucun casier judiciaire"];
-
-
-
     visitecanada = ['Oui','Non'];
     residentpermanent = ['Oui','Non'];
     compagnie = ['Oui','Non'];
@@ -214,7 +149,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
     vieAnterieur =['oui','non'];
     compagne = ['oui','non'];
     attestationTravail=['oui','non'];
-    preProcedure=['oui','non'];
+    preProcedure=['Oui','non'];
     offreEmploieCanadien =['oui','non'];
     diplomeEtude=['oui','non'];
     familleAcceuil=['oui','non'];
@@ -222,6 +157,61 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
     langueQuestion=['oui','non'];
     tcl=['oui','non'];
     visa = ['Visa Etudiant', 'Visa Travailleur Permanent', 'Visa Visiteur','visa Travailleur Temporaire'];
+    sante = ["Oui j'ai des probleme de sante",'Non aucun probleme de sante'];
+    enfantsItems = ["Oui","Non"];
+
+
+
+    // selected = false;
+    // if (dropdownValue=="oui payer"){
+    //   enabled = true;
+    // }
+    // else{
+    //   enabled = false;
+    // }
+    enfantsValue=enfantsItems[1];
+    preProcess=preProcedure[1];
+    super.initState();
+    permisEtudeValue=permisEtudeItems[1];
+    super.initState();
+    passportValideValue=passportValideItems[1];
+    super.initState();
+    consultationPayeValue = consultationPayeItems[1];
+    super.initState();
+    passportValideValue=passportValideItems[1];
+
+    // if (dropdownVa=="oui je suis parent"){
+    //   enabled = true;
+    // }
+    // else{
+    //   enabled = false;
+    // }
+    // super.initState();
+
+    enfantsValue=enfantsItems[1];
+
+    typeVisa = 'Visa Etudiant';
+    // if (typeVisa=="Visa Etudiant"){
+    //   enabled = true;
+    // }
+    // else{
+    //   enabled = false;
+    // }
+    // super.initState();
+
+
+    consultationPayeValue = 'oui';
+    // if (dropdownValue=="oui" && typeVisa=="visa permanant" ){
+    //   enabled = true;
+    // }
+    // else{
+    //   enabled = false;
+    // }
+    // super.initState();
+
+
+
+
 
   }
   @override
@@ -245,16 +235,24 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                 controlsBuilder:(BuildContext context, ControlsDetails details){
                   return Row(
                   children:[
+                    Visibility(
+                      visible: details.currentStep>1?false:true,
+                      child: TextButton(
+                        onPressed:details.onStepContinue,
+                        child : Text("Suivant"),
+                            ),
+                    ),
+                    Visibility(
+                      visible: details.currentStep==0?false:true,
+                      child: TextButton(
+                        onPressed:details.onStepCancel,
+                        child : Text("Retour"),
+                        ),
+                    ),
                     TextButton(
-                      onPressed:details.onStepContinue,
-                      child : Text("Suivant"),
-                          ),
-                    TextButton(
-                      onPressed:details.onStepContinue,
-                      child : Text("Retour"),
-                      ),
-                    TextButton(
-                      onPressed:details.onStepContinue,
+                      onPressed:(){
+
+                      },
                       child : Text("Eregistré"),
                     )
                   ],
@@ -263,29 +261,97 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                 type: StepperType.vertical,
                 currentStep: _index,
                   onStepCancel: (){
-                  if(_index>0){
+                  if(_index==1){
                     setState(() {
                       _index-=1;
+                    });
+                  }else if(_index>1){
+                    setState(() {
+                      _index=1;
                     });
                   }
                   },
                 onStepContinue: (){
-                  if(_index<=0 && dropdownValue=="oui"){
+                  if(_index==0 && consultationPayeValue=="oui"){
                     setState(() {
                       _index +=1;
                     });
-                  }else{
+                  }else if (_index==1){
+                    switch (typeVisa){
+                      case "Visa Etudiant":
+                        setState(() {
+                          _index =2;
+                        });
+                        break;
+                      case "Visa Travailleur Permanent":
+                        setState(() {
+                          _index =3;
+                        });
+                        break;
+                      case "Visa Visiteur":
+                        setState(() {
+                          _index =4;
+                        });
+                        break;
+                      case "visa Travailleur Temporaire":
+                        setState(() {
+                          _index =5;
+                        });
+                        break;
+                    }
+                  }else if (_index==0 && consultationPayeValue=="non"){
                     print("veillé payer la consultation");
                   }
                 },
                 onStepTapped: (int index){
-                  setState(() {
-                    if(index ==1 && dropdownValue=="oui"){
+                  if(index==0){
+                    setState(() {
                       _index=index;
-                    }else if (index != 1){
-                      _index=index;
+                    });
+                  }else if(index==1 && consultationPayeValue=="oui"){
+                    setState(() {
+                      _index=1;
+                    });
+                  }else if(index>1 && consultationPayeValue=="oui"){
+                    switch (typeVisa){
+                      case "Visa Etudiant":
+                        if (index==2){
+                          setState(() {
+                            _index =2;
+                          });
+                        }else(
+                        print("cette rubrique ne correspond pas a votre type de visa!")
+                        );
+                        break;
+                      case "Visa Travailleur Permanent":
+                        if (index==3){
+                          setState(() {
+                            _index =3;
+                          });
+                        }else(
+                            print("cette rubrique ne correspond pas a votre type de visa!")
+                        );
+                        break;
+                      case "Visa Visiteur":
+                        if (index==4){
+                          setState(() {
+                            _index =4;
+                          });
+                        }else(
+                            print("cette rubrique ne correspond pas a votre type de visa!")
+                        );
+                        break;
+                      case "visa Travailleur Temporaire":
+                        if (index==5){
+                          setState(() {
+                            _index =5;
+                          });
+                        }else(
+                            print("cette rubrique ne correspond pas a votre type de visa!")
+                        );
+                        break;
                     }
-                  });
+                  }
                 },
 
                 steps: <Step>[
@@ -470,7 +536,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                         borderRadius: BorderRadius.circular(5.0)),
                                     contentPadding: EdgeInsets.all(10),
                                   ),
-                                  value: dropdownValue,
+                                  value: consultationPayeValue,
                                   icon: const Icon(Icons.arrow_downward),
                                   iconSize: 24,
                                   elevation: 16,
@@ -484,10 +550,10 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                       } else{
                                         enabled= false;
                                       }
-                                      dropdownValue = newValue!;
+                                      consultationPayeValue = newValue!;
                                     });
                                   },
-                                  items: check
+                                  items: consultationPayeItems
                                       .map<DropdownMenuItem<String>>((String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
@@ -627,7 +693,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                               borderRadius: BorderRadius.circular(5.0)),
                                           contentPadding: EdgeInsets.all(10),
                                         ),
-                                        value: dropdownVa,
+                                        value: passportValideValue,
                                         icon: const Icon(Icons.arrow_downward),
                                         iconSize: 24,
                                         elevation: 16,
@@ -635,16 +701,12 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                             color: Colors.deepPurple
                                         ),
                                         onChanged: (String? newValue) {
+                                          print(newValue);
                                           setState(() {
-                                            if(newValue=="oui mon passport est valide"){
-                                              enabled = true;
-                                            } else{
-                                              enabled= false;
-                                            }
-                                            dropdownVa = newValue!;
+                                            passportValideValue = newValue!;
                                           });
                                         },
-                                        items: passportValide
+                                        items: passportValideItems
                                             .map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
@@ -658,27 +720,30 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                     SizedBox(
                                       width: defaultPadding,
                                     ),
-                                    Expanded(
-                                      flex: 2,
-                                      child:  InputWidget(
-                                        // ////////enabled:enabled,
-                                        kController:dateEditingController,
-                                        keyboardType: TextInputType.datetime,
-                                        onSaved: (String? value) {
-                                          // This optional block of code can be used to run
-                                          // code when the user saves the form.
-                                        },
-                                        onChanged: (String? value) {
-                                          print(dateEditingController.text);
-                                          // This optional block of code can be used to run
-                                          // code when the user saves the form.
-                                        },
+                                    Visibility(
+                                      visible: passportValideValue=="Oui"?true:false,
+                                      child: Expanded(
+                                        flex: 2,
+                                        child:  InputWidget(
+                                          // ////////enabled:enabled,
+                                          kController:dateEditingController,
+                                          keyboardType: TextInputType.datetime,
+                                          onSaved: (String? value) {
+                                            // This optional block of code can be used to run
+                                            // code when the user saves the form.
+                                          },
 
-                                        topLabel: "Quelle est la date d'expiration?",
-                                        // hintText: "Entrer votre profession",
-                                        // prefixIcon: FlutterIcons.chevron_left_fea,
+                                          onChanged: (String? value) {
+                                            print(dateEditingController.text);
+                                            // This optional block of code can be used to run
+                                            // code when the user saves the form.
+                                          },
+                                          topLabel: "Quelle est la date d'expiration?",
+                                          // hintText: "Entrer votre profession",
+                                          // prefixIcon: FlutterIcons.chevron_left_fea,
+                                        ),
+
                                       ),
-
                                     ),
 
                                   ],
@@ -729,7 +794,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                               borderRadius: BorderRadius.circular(5.0)),
                                           contentPadding: EdgeInsets.all(10),
                                         ),
-                                        value: dropdownValues,
+                                        value: enfantsValue,
                                         icon: const Icon(Icons.arrow_downward),
                                         iconSize: 24,
                                         elevation: 16,
@@ -738,15 +803,10 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                         ),
                                         onChanged: (String? newValue) {
                                           setState(() {
-                                            if(newValue=="oui je suis parent"){
-                                              enabled = true;
-                                            } else{
-                                              enabled= false;
-                                            }
-                                            dropdownValues = newValue!;
+                                            enfantsValue = newValue!;
                                           });
                                         },
-                                        items: enfant
+                                        items: enfantsItems
                                             .map<DropdownMenuItem<String>>((String value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
@@ -759,31 +819,32 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                   ],
                                 ),
                                 SizedBox(height: 24.0),
+                                Visibility(
+                                    visible:enfantsValue=="Oui"?true:false,
+                                  child: Expanded(
+                                    flex: 2,
+                                    child: InputWidget(
+                                                // ////////enabled:enabled,
+                                      kController: ageEnfantEditingController,
+                                      keyboardType: TextInputType.number,
+                                      onSaved: (String? value) {
+                                        // This optional block of code can be used to run
+                                        // code when the user saves the form.
+                                      },
+                                      onChanged: (String? value) {
+                                        print(ageEnfantEditingController.text);
+                                        // This optional block of code can be used to run
+                                        // code when the user saves the form.
+                                      },
+                                      topLabel: "Quelle est l'age de vos des enfants?",
+                                      hintText: "Entrer son age",
+                                      // prefixIcon: FlutterIcons.chevron_left_fea,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 24.0),
                                 Row(
                                     children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child:  InputWidget(
-                                          // ////////enabled:enabled,
-                                          kController: ageEnfantEditingController,
-                                          keyboardType: TextInputType.number,
-                                          onSaved: (String? value) {
-                                            // This optional block of code can be used to run
-                                            // code when the user saves the form.
-                                          },
-                                          onChanged: (String? value) {
-                                            print(ageEnfantEditingController.text);
-                                            // This optional block of code can be used to run
-                                            // code when the user saves the form.
-                                          },
-                                          topLabel: "Quelle est l'age de vos des enfants?",
-                                          hintText: "Entrer le(s) age(s)",
-                                          // prefixIcon: FlutterIcons.chevron_left_fea,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: defaultPadding,
-                                      ),
                                       Expanded(
                                         flex: 2,
                                         child:  DropdownButtonFormField <String>(
@@ -843,7 +904,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                           ),
                         ),
                       ),
-                      isActive: _index==0?true:false
+                      isActive: _index==1?true:false
                   ),
                   //VISA ETUDIANT
                   Step(title: Text("information specifique a la procedure de visa etudiant"),
@@ -894,7 +955,7 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
 
                                                 topLabel: "Niveau d'etude",
 
-                                                hintText: "Enter vos Niveau d'etude",
+                                                hintText: "Enter votre Niveau d'etude",
                                                 // prefixIcon: FlutterIcons.chevron_left_fea,
                                               ),
                                             ),
@@ -958,19 +1019,25 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                               flex: 2,
                                               child:  DropdownButtonFormField <String>(
                                                 decoration: InputDecoration(
-                                                  labelText: "Atez vous fait une demande  de permis d'etude?",
+                                                  labelText: "Avez vous fait une demande  de permis d'etude?",
                                                   border: OutlineInputBorder(
                                                       borderRadius: BorderRadius.circular(5.0)),
                                                   contentPadding: EdgeInsets.all(10),
                                                 ),
+                                                value: permisEtudeValue,
                                                 icon: const Icon(Icons.arrow_downward),
                                                 iconSize: 24,
                                                 elevation: 16,
                                                 style: const TextStyle(
                                                     color: Colors.deepPurple
                                                 ),
-                                                onChanged: (String? newValue) {                                },
-                                                items: permisEtude
+                                              onChanged: (String? newValue) {
+                                                print(newValue);
+                                                setState(() {
+                                                  permisEtudeValue = newValue!;
+                                                });
+                                              },
+                                                items: permisEtudeItems
                                                     .map<DropdownMenuItem<String>>((String value) {
                                                   return DropdownMenuItem<String>(
                                                     value: value,
@@ -983,52 +1050,55 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                           ],
                                         ),
                                         SizedBox(height: 24.0),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child:  InputWidget(
-                                                // ////////enabled:enabled,
-                                                kController: nomEcoleEditingController,
-                                                keyboardType: TextInputType.text,
-                                                onSaved: (String? value) {
-                                                  // This optional block of code can be used to run
-                                                  // code when the user saves the form.
-                                                },
-                                                onChanged: (String? value) {
-                                                  print(nomEcoleEditingController.text);
-                                                },
+                                        Visibility(
+                                            visible:permisEtudeValue=="Oui"?true:false,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child:  InputWidget(
+                                                  // ////////enabled:enabled,
+                                                  kController: nomEcoleEditingController,
+                                                  keyboardType: TextInputType.text,
+                                                  onSaved: (String? value) {
+                                                    // This optional block of code can be used to run
+                                                    // code when the user saves the form.
+                                                  },
+                                                  onChanged: (String? value) {
+                                                    print(nomEcoleEditingController.text);
+                                                  },
 
-                                                topLabel: "Quel es le noms de cet etablissement?",
+                                                  topLabel: " si oui quel es le noms de cet etablissement?",
 
-                                                hintText: "ENSPD",
-                                                // prefixIcon: FlutterIcons.chevron_left_fea,
+                                                  hintText: "ENSPD",
+                                                  // prefixIcon: FlutterIcons.chevron_left_fea,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: defaultPadding,
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child:  InputWidget(
-                                                // ////////enabled:enabled,
-                                                kController: priviceEtudeEditingController,
-                                                keyboardType: TextInputType.text,
-                                                onSaved: (String? value) {
-                                                  // This optional block of code can be used to run
-                                                  // code when the user saves the form.
-                                                },
-                                                onChanged: (String? value) {
-                                                  print(priviceEtudeEditingController.text);
-                                                },
-
-                                                topLabel: "Dans quelle prvince allez vous etudie?",
-
-                                                hintText: "Quebec",
-                                                // prefixIcon: FlutterIcons.chevron_left_fea,
+                                              SizedBox(
+                                                width: defaultPadding,
                                               ),
-                                            ),
-                                          ],
+                                              Expanded(
+                                                flex: 2,
+                                                child:  InputWidget(
+                                                  // ////////enabled:enabled,
+                                                  kController: priviceEtudeEditingController,
+                                                  keyboardType: TextInputType.text,
+                                                  onSaved: (String? value) {
+                                                    // This optional block of code can be used to run
+                                                    // code when the user saves the form.
+                                                  },
+                                                  onChanged: (String? value) {
+                                                    print(priviceEtudeEditingController.text);
+                                                  },
+
+                                                  topLabel: "Dans quelle prvince allez vous etudie?",
+
+                                                  hintText: "Quebec",
+                                                  // prefixIcon: FlutterIcons.chevron_left_fea,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         // bouton pur cocher
                                         // Checkbox(value: selected, onChanged: (value){
@@ -1206,7 +1276,9 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                 ),
                               ),)
                         ],
-                      )),
+                      ),
+                      isActive: _index==2?true:false
+                  ),
                   Step(title: Text(" Information propre a la procedure de visa travailleur Qualifier avec residence permanente"),
                       content: Column(
                         children: [
@@ -1502,7 +1574,9 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                               ),
                             ),)
                         ],
-                      )),
+                      ),
+                      isActive: _index==3?true:false
+                      ),
                   Step(title: Text("Information specifique a la procedure de visa visiteur"),
                       content: Column(
                         children: [
@@ -1703,7 +1777,9 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                               ),
                             ),)
                         ],
-                      )),
+                      ),
+                      isActive: _index==4?true:false
+                  ),
                   Step(title: Text("Information specifique a la procedure visa travailleur temporaire"),
                       content: Column(
                         children: [
@@ -1820,13 +1896,19 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                                     borderRadius: BorderRadius.circular(5.0)),
                                                 contentPadding: EdgeInsets.all(10),
                                               ),
+                                              value: preProcess,
                                               icon: const Icon(Icons.arrow_downward),
                                               iconSize: 24,
                                               elevation: 16,
                                               style: const TextStyle(
                                                   color: Colors.deepPurple
                                               ),
-                                              onChanged: (String? newValue) {                                },
+                                              onChanged: (String? newValue) {
+                                                print(newValue);
+                                                setState(() {
+                                                  preProcess = newValue!;
+                                                });
+                                              },
                                               items: preProcedure
                                                   .map<DropdownMenuItem<String>>((String value) {
                                                 return DropdownMenuItem<String>(
@@ -1844,56 +1926,59 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                                       ),
                                       SizedBox(height: 24.0),
 
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 2,
-                                            child:  InputWidget(
-                                              // ////////enabled:enabled,
-                                              kController: datePreProcedureEditingController,
-                                              keyboardType: TextInputType.text,
-                                              onSaved: (String? value) {
-                                                // This optional block of code can be used to run
-                                                // code when the user saves the form.
-                                              },
-                                              onChanged: (String? value) {
-                                                print(datePreProcedureEditingController.text);
-                                                // This optional block of code can be used to run
-                                                // code when the user saves the form.
-                                              },
+                                      Visibility(
+                                          visible:preProcess=="Oui"?true:false,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child:  InputWidget(
+                                              // enabled:enabled,
+                                                kController: datePreProcedureEditingController,
+                                                keyboardType: TextInputType.text,
+                                                onSaved: (String? value) {
+                                                  // This optional block of code can be used to run
+                                                  // code when the user saves the form.
+                                                },
+                                                onChanged: (String? value) {
+                                                  print(datePreProcedureEditingController.text);
+                                                  // This optional block of code can be used to run
+                                                  // code when the user saves the form.
+                                                },
 
-                                              topLabel: "Si oui depuis quand ?",
+                                                topLabel: "Si oui depuis quand ?",
 
-                                              hintText: "depuis 3 ans",
-                                              // prefixIcon: FlutterIcons.chevron_left_fea,
+                                                hintText: "depuis 3 ans",
+                                                // prefixIcon: FlutterIcons.chevron_left_fea,
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: defaultPadding,
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child:  InputWidget(
-                                              // ////////enabled:enabled,
-                                              kController: programmePreProcedureEditingController,
-                                              keyboardType: TextInputType.text,
-                                              onSaved: (String? value) {
-                                                // This optional block of code can be used to run
-                                                // code when the user saves the form.
-                                              },
-                                              onChanged: (String? value) {
-                                                print(programmePreProcedureEditingController.text);
-                                                // This optional block of code can be used to run
-                                                // code when the user saves the form.
-                                              },
-
-                                              topLabel: "Quel programme et quelle a été la décision ?",
-
-                                              hintText: "visa etudiant",
-                                              // prefixIcon: FlutterIcons.chevron_left_fea,
+                                            SizedBox(
+                                              width: defaultPadding,
                                             ),
-                                          ),
-                                        ],
+                                            Expanded(
+                                              flex: 2,
+                                              child:  InputWidget(
+                                                // ////////enabled:enabled,
+                                                kController: programmePreProcedureEditingController,
+                                                keyboardType: TextInputType.text,
+                                                onSaved: (String? value) {
+                                                  // This optional block of code can be used to run
+                                                  // code when the user saves the form.
+                                                },
+                                                onChanged: (String? value) {
+                                                  print(programmePreProcedureEditingController.text);
+                                                  // This optional block of code can be used to run
+                                                  // code when the user saves the form.
+                                                },
+
+                                                topLabel: "Quel programme et quelle a été la décision ?",
+
+                                                hintText: "visa etudiant",
+                                                // prefixIcon: FlutterIcons.chevron_left_fea,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(height: 24.0),
 
@@ -2138,94 +2223,16 @@ class _EnregistrerClientContenuState extends State<EnregistrerClientContenu> {
                               ),
                             ),)
                         ],
-                      ))
+                      ),
+                      isActive: _index==5?true:false
+                  ),
                 ],
               ),
             ),
-
-
-              //           //FIN DU DEUXIEME FORMULAIRE
-              //         ],
-              //       ) ,
-              //     ),
-              //     //CONDITION POUR LE TROISIEME FORMULAIRE
-              //
-              //
-              //     // DEBUT DU TROISIEME FORMULAIRE
-              //
-              //
-              //
-              //     //FIN DU TROISIEME FORMULAIRE
-              //
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
     );
   }
-
-  // Widget buildTextField(int nb, String labelText, String placeholder, bool isPasswordTextField, TextEditingController textEditingController) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 35.0),
-  //     child: TextField(
-  //       maxLines: nb,
-  //       controller: textEditingController,
-  //       //obscureText: isPasswordTextField ? showPassword : false,
-  //       decoration: InputDecoration(
-  //           suffixIcon: isPasswordTextField
-  //               ? IconButton(
-  //             onPressed: () {},
-  //             icon: const Icon(Icons.remove_red_eye, color: Colors.grey,),
-  //           )
-  //               : null,
-  //           contentPadding: const EdgeInsets.only(bottom: 3),
-  //           labelText: labelText,
-  //           labelStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black,),
-  //           floatingLabelBehavior: FloatingLabelBehavior.always,
-  //           hintText: placeholder,
-  //           hintStyle: const TextStyle(fontSize: 13, color: Colors.black,)
-  //       ),
-  //     ),
-  //   );
-  // }
-  //
-  //
-  // Widget (String labelText, String placeholder, TextEditingController textEditingController) {
-  //   //DateTime dt = DateTime.parse(placeholder);
-  //
-  //   return Padding(
-  //       padding: const EdgeInsets.only(bottom: 35.0),
-  //       child: TextField(
-  //         controller: textEditingController,
-  //         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black,),
-  //         decoration: InputDecoration(
-  //           labelText: labelText,
-  //           hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black,),
-  //           suffixIcon: const Icon(Icons.calendar_month, color: Colors.blueGrey,),
-  //         ),
-  //         readOnly: true,
-  //         onTap: () async {
-  //           DateTime? pickedDate = await showDatePicker(
-  //               context: context,
-  //               initialDate: DateTime.now(),
-  //               firstDate: DateTime(1950),
-  //               lastDate: DateTime(2100)
-  //           );
-  //           if (pickedDate != null) {
-  //             String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-  //             setState(() {
-  //               if(labelText == "Date debut"){
-  //                 dateEditingController.text = formattedDate; //set output date to TextField value.
-  //               }else if(labelText == "Date fin"){
-  //                 dateEditingController.text = formattedDate; //set output date to TextField value.
-  //               }
-  //             });
-  //           } else {}
-  //         },
-  //       )
-  //   );
-  // }
-
 }

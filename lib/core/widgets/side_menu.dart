@@ -1,15 +1,12 @@
 import 'package:smart_admin_dashboard/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../screens/enregistrer_client/enregistrer_client_page.dart';
-import '../../screens/home/home_screen.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
     Key? key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,7 +22,7 @@ class SideMenu extends StatelessWidget {
                   height: defaultPadding * 3,
                 ),
                 Image.asset(
-                  "assets/logo/logo_omonde.png",
+                  "assets/logo/logo_icons.png",
                   scale: 5,
                 ),
                 SizedBox(
@@ -38,10 +35,10 @@ class SideMenu extends StatelessWidget {
               title: "Acceuil",
               svgSrc: "assets/icons/menu_dashbord.svg",
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                // );
               },
             ),
             DrawerListTile(
@@ -56,31 +53,6 @@ class SideMenu extends StatelessWidget {
               svgSrc: "assets/icons/money.svg",
               press: () {},
             ),
-            // DrawerListTile(
-            //   title: "Categories",
-            //   svgSrc: "assets/icons/menu_doc.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Appearance",
-            //   svgSrc: "assets/icons/menu_store.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Users",
-            //   svgSrc: "assets/icons/menu_notification.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Tools",
-            //   svgSrc: "assets/icons/menu_profile.svg",
-            //   press: () {},
-            // ),
-            // DrawerListTile(
-            //   title: "Settings",
-            //   svgSrc: "assets/icons/menu_setting.svg",
-            //   press: () {},
-            // ),
           ],
         ),
       ),

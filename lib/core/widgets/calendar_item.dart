@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 class CalendarItem extends StatelessWidget {
   final CalendarData calendarItemData;
-
   const CalendarItem({Key? key, required this.calendarItemData})
       : super(key: key);
 
